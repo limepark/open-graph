@@ -1,0 +1,15 @@
+## Use the image portlet with a specific name as an Open Graph image.
+
+#set ($fallbackImageUrl = 'http://example.com')
+#set ($portletName= 'Bild')
+
+#set ($utils = $request.getAttribute('sitevision.utils'))
+#set ($nodeTreeUtil = $utils.nodeTreeUtil)
+#set ($propertyUtil = $utils.propertyUtil)
+
+#set ($currentPage = $utils.portletContextUtil.currentPage)
+#set ($image = $nodeTreeUtil.findPortletByName($currentPage, $portletName))
+
+#set ($imageUrl = $propertyUtil.getNestedString($image, 'image', 'URL', $fallbackImageUrl))
+
+<meta property="og:image" content="$imageUrl" />
