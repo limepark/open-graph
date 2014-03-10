@@ -10,4 +10,4 @@
 #set ($image = $nodeTreeUtil.findPortletByName($currentPage, $portletName))
 #set ($imageUrl = $propertyUtil.getNestedString($image, 'image', 'URL', $fallbackImageUrl))
 
-<meta property="og:image" content="$imageUrl" />
+<meta property="og:image" content="$!imageUrl" />
