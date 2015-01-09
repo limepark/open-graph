@@ -26,6 +26,25 @@
 
 #### /Konfiguration ####
 
+### Macros ###
+
+#macro ( loadText $metas $portletName $result )
+   #foreach ($meta in $metas)
+      #if ($result == '')
+         #if ($meta.toLowerCase() == 'portlet')
+            #set ($portletNode = '')
+            #set ($portletNode = $nodeTreeUtil.findPortletByName($currentPage, $portletName))
+            #if ($portletNode)
+               #set ($result = $outputUtil.getNodeOutput($currentPage, $portletNode, $outputUtil.CONTENT_TYPE_TEXT_PLAIN))
+            #end
+         #else
+            #set ($result = $propertyUtil.getString($currentPage, $meta))
+         #end
+      #end
+   #end
+#end
+
+
 
 ### Variabler ###
 
@@ -66,22 +85,6 @@
    #end
    
    <meta property='og:image' content='$!imageUrl' />
-#end
-
-#macro ( loadText $metas $portletName $result )
-   #foreach ($meta in $metas)
-      #if ($result == '')
-         #if ($meta.toLowerCase() == 'portlet')
-            #set ($portletNode = '')
-            #set ($portletNode = $nodeTreeUtil.findPortletByName($currentPage, $portletName))
-            #if ($portletNode)
-               #set ($result = $outputUtil.getNodeOutput($currentPage, $portletNode, $outputUtil.CONTENT_TYPE_TEXT_PLAIN))
-            #end
-         #else
-            #set ($result = $propertyUtil.getString($currentPage, $meta))
-         #end
-      #end
-   #end
 #end
 
 #if ($renderPreambleMeta)
