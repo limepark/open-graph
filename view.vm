@@ -3,10 +3,8 @@
 
 #### Konfiguration ####
 
-## Bestämmer i vilken ordning bilder ska hämtas ur metadata,
-## använd "Portlet" där den ska hämtas ur portlet istället.
-#set ($imageOrder = ['SV.Image', 'Portlet'])
-#set ($imagePortletName = 'Bild')
+## Bestämmer i vilken ordning bilder ska hämtas ur metadata.
+#set ($imageOrder = ['SV.Image'])
 #set ($imageFallbackUrl = '/webdav/images/system/logga.png')
 #set ($renderImageMeta = true)
 
@@ -18,27 +16,18 @@
 #set ($renderPreambleAsDescription = true)
 
 
-## Bestämmer i vilken ordning rubrik/titel ska hämtas ut metadata,
-## använd "Portlet" där portleten ska hämtas.
-#set ($titleOrder = ['SV.Title', 'Portlet'])
-#set ($titlePortletName = 'Rubrik')
+## Bestämmer i vilken ordning rubrik/titel ska hämtas ut metadata.
+#set ($titleOrder = ['SV.Title'])
 #set ($renderTitleMeta = true)
 
 #### /Konfiguration ####
 
 ### Macros ###
 
-#macro ( loadText $metas $portletName $result )
+#macro ( loadText $metas $result )
    #foreach ($meta in $metas)
       #if ($result == '')
-         #if ($meta.toLowerCase() == 'portlet')
-            #set ($portletNode = '')
-            #set ($portletNode = $nodeTreeUtil.findPortletByName($currentPage, $portletName))
-            #if ($portletNode)
-               #set ($result = $outputUtil.getNodeOutput($currentPage, $portletNode, $outputUtil.CONTENT_TYPE_TEXT_PLAIN))
-            #end
-         #else
-            #set ($result = $propertyUtil.getString($currentPage, $meta))
+            #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
          #end
       #end
    #end
@@ -52,7 +41,6 @@
 #set ($nodeTreeUtil = $utils.nodeTreeUtil)
 #set ($propertyUtil = $utils.propertyUtil)
 #set ($currentPage = $utils.portletContextUtil.currentPage)
-#set ($outputUtil = $utils.outputUtil)
 
 #set ($imageUrl = '')
 #set ($preambleText = '')
@@ -62,12 +50,7 @@
 #if ($renderImageMeta)
    #foreach ($meta in $imageOrder)
       #if ($imageUrl == '')
-         #if ($meta.toLowerCase() == 'portlet')
-            #set ($portletNode = $nodeTreeUtil.findPortletByName($currentPage, $imagePortletName))
-            #set ($imageUrl = $propertyUtil.getNestedString($portletNode, 'image', 'URL', ''))
-         #else
-            #set ($imageUrl = $propertyUtil.getNestedString($currentPage, $meta, 'URL', ''))
-         #end
+         #set ($imageUrl = $propertyUtil.getNestedString($currentPage, $meta, 'URL', ''))
       #end
    #end
    
@@ -88,7 +71,7 @@
 #end
 
 #if ($renderPreambleMeta)
-   #loadText ($preambleOrder $preamblePortletName $preambleText)
+   #loadText ($preambleOrder $preambleText)
    #if ($preambleText != '')
       <meta property="og:description" content="$!preambleText" />
       
@@ -99,7 +82,7 @@
 #end
 
 #if ($renderTitleMeta)
-   #loadText ($titleOrder $titlePortletName $titleText)
+   #loadText ($titleOrder $titleText)
    
    #if ($titleText != '')
       <meta property="og:title" content="$!titleText" />
