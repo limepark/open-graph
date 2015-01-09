@@ -1,13 +1,104 @@
-## Use the image portlet with a specific name as an Open Graph image.
-#set ($fallbackImageUrl = 'http://example.com/my-image.jpg')
-#set ($portletName= 'Bild')
+#### Delningtaggar ####
+#######################
+
+#### Konfiguration ####
+
+## Bestämmer i vilken ordning bilder ska hämtas ur metadata,
+## använd "Portlet" där den ska hämtas ur portlet istället.
+#set ($imageOrder = ["SV.Image", "Portlet"])
+#set ($imagePortletName = "Bild")
+#set ($imageFallbackUrl = '/webdav/images/system/logga.png')
+#set ($renderImageMeta = true)
+
+## Bestämmer i vilken ordning ingress ska hämtas ut metadata,
+## använd "Portlet" där portleten ska hämtas.
+#set ($preambleOrder = ["SV.Description", "Portlet"])
+#set ($preamblePortletName = "Ingress")
+#set ($renderPreambleMeta = true)
+#set ($renderPreambleAsDescription = true)
+
+
+## Bestämmer i vilken ordning rubrik/titel ska hämtas ut metadata,
+## använd "Portlet" där portleten ska hämtas.
+#set ($titleOrder = ["SV.Title", "Portlet"])
+#set ($titlePortletName = "Rubrik")
+#set ($renderTitleMeta = true)
+
+#### /Konfiguration ####
+
+
+### Variabler ###
 
 #set ($utils = $request.getAttribute('sitevision.utils'))
 #set ($nodeTreeUtil = $utils.nodeTreeUtil)
 #set ($propertyUtil = $utils.propertyUtil)
-
 #set ($currentPage = $utils.portletContextUtil.currentPage)
-#set ($image = $nodeTreeUtil.findPortletByName($currentPage, $portletName))
-#set ($imageUrl = $propertyUtil.getNestedString($image, 'image', 'URL', $fallbackImageUrl))
+#set ($outputUtil = $utils.outputUtil)
 
-<meta property="og:image" content="$!imageUrl" />
+#set ($imageUrl = "")
+#set ($preambleText = "")
+#set ($titleText = "")
+
+
+#if ($renderImageMeta)
+   #foreach ($meta in $imageOrder)
+      #if ($imageUrl == "")
+         #if ($meta.toLowerCase() == "portlet")
+            #set ($portletNode = $nodeTreeUtil.findPortletByName($currentPage, $imagePortletName))
+            #set ($imageUrl = $propertyUtil.getNestedString($portletNode, 'image', 'URL', ''))
+         #else
+            #set ($imageUrl = $propertyUtil.getNestedString($currentPage, $meta, 'URL', ''))
+         #end
+      #end
+   #end
+   
+   #if ($imageUrl == "")
+      #if ($imageFallbackUrl != "")
+         #if ($imageFallbackUrl.substring(0, 1) == "/")
+            #set ($sitePageUrl = $propertyUtil.getString($utils.resourceLocatorUtil.sitePage, "URL"))
+            #set ($sitePageUri = $propertyUtil.getString($utils.resourceLocatorUtil.sitePage, "URI"))
+            
+            #set ($imageFallbackUrl = $sitePageUrl.replace($sitePageUri, "") + $imageFallbackUrl)
+         #end
+         
+         #set ($imageUrl = $imageFallbackUrl)
+      #end
+   #end
+   
+   <meta property="og:image" content="$!imageUrl" />
+#end
+
+#macro ( loadText $metas $portletName $result )
+   #foreach ($meta in $metas)
+      #if ($result == "")
+         #if ($meta.toLowerCase() == "portlet")
+            #set ($portletNode = "")
+            #set ($portletNode = $nodeTreeUtil.findPortletByName($currentPage, $portletName))
+            #if ($portletNode)
+               #set ($result = $outputUtil.getNodeOutput($currentPage, $portletNode, $outputUtil.CONTENT_TYPE_TEXT_PLAIN))
+            #end
+         #else
+            #set ($result = $propertyUtil.getString($currentPage, $meta))
+         #end
+      #end
+   #end
+#end
+
+#if ($renderPreambleMeta)
+   #loadText ($preambleOrder $preamblePortletName $preambleText)
+   #if ($preambleText != "")
+      <meta property="og:description" content="$!preambleText" />
+      
+      #if ($renderPreambleAsDescription)
+         <meta name="description" content="$!preambleText" />
+      #end
+   #end
+#end
+
+#if ($renderTitleMeta)
+   #loadText ($titleOrder $titlePortletName $titleText)
+   
+   #if ($titleText != "")
+      <meta property="og:title" content="$!titleText" />
+   #end
+#end
