@@ -5,13 +5,11 @@
 
 ## Bestämmer i vilken ordning bilder ska hämtas ur metadata.
 #set ($imageOrder = ['SV.Image'])
-#set ($imageFallbackUrl = '/webdav/images/system/logga.png')
+#set ($imageFallbackUrl = '/webdav/files/logga.png')
 #set ($renderImageMeta = true)
 
-## Bestämmer i vilken ordning ingress ska hämtas ut metadata,
-## använd "Portlet" där portleten ska hämtas.
-#set ($preambleOrder = ['SV.Description', 'Portlet'])
-#set ($preamblePortletName = 'Ingress')
+## Bestämmer i vilken ordning ingress ska hämtas ut metadata.
+#set ($preambleOrder = ['SV.Description'])
 #set ($renderPreambleMeta = true)
 #set ($renderPreambleAsDescription = true)
 
@@ -28,7 +26,6 @@
    #foreach ($meta in $metas)
       #if ($result == '')
             #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
-         #end
       #end
    #end
 #end
@@ -45,7 +42,6 @@
 #set ($imageUrl = '')
 #set ($preambleText = '')
 #set ($titleText = '')
-
 
 #if ($renderImageMeta)
    #foreach ($meta in $imageOrder)
