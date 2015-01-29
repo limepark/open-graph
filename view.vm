@@ -84,3 +84,5 @@
       <meta property="og:title" content="$!titleText" />
    #end
 #end
+
+<meta property="og:url" content="$propertyUtil.getString($currentPage, 'URL')" />
