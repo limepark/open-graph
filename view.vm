@@ -5,7 +5,9 @@
 
 ## Bestämmer i vilken ordning bilder ska hämtas ur metadata.
 #set ($imageOrder = ['SV.Image'])
-#set ($imageFallbackUrl = '/webdav/files/logga.png')
+#set ($imageFallbackUrl = '/webdav/images/logga.png')
+#set ($imageFallbackWidth = '554')
+#set ($imageFallbackHeight = '119')
 #set ($renderImageMeta = true)
 
 ## Bestämmer i vilken ordning ingress ska hämtas ut metadata.
@@ -15,7 +17,7 @@
 
 
 ## Bestämmer i vilken ordning rubrik/titel ska hämtas ut metadata.
-#set ($titleOrder = ['SV.Title'])
+#set ($titleOrder = ['SV.Title', 'sidnamn'])
 #set ($renderTitleMeta = true)
 
 #### /Konfiguration ####
@@ -42,11 +44,18 @@
 #set ($imageUrl = '')
 #set ($preambleText = '')
 #set ($titleText = '')
+#set ($imageWidth = '')
+#set ($imageHeight = '')
 
 #if ($renderImageMeta)
    #foreach ($meta in $imageOrder)
       #if ($imageUrl == '')
-         #set ($imageUrl = $propertyUtil.getNestedString($currentPage, $meta, 'URL', ''))
+         #set ($imageNode = $propertyUtil.getNode($currentPage, $meta))
+         #if ($imageNode)
+            #set ($imageUrl = $propertyUtil.getString($imageNode, 'URL', ''))
+            #set ($imageWidth = $propertyUtil.getString($imageNode, 'width', ''))
+            #set ($imageHeight = $propertyUtil.getString($imageNode, 'height', ''))
+         #end
       #end
    #end
    
@@ -60,10 +69,19 @@
          #end
          
          #set ($imageUrl = $imageFallbackUrl)
+         #set ($imageWidth = $imageFallbackWidth)
+         #set ($imageHeight = $imageFallbackHeight)
       #end
    #end
    
    <meta property='og:image' content='$!imageUrl' />
+   #if ($imageWidth)
+      <meta property="og:image:width" content="$!imageWidth" />
+   #end
+   
+   #if ($imageHeight)
+      <meta property="og:image:height" content="$!imageHeight" />
+   #end
 #end
 
 #if ($renderPreambleMeta)
@@ -85,4 +103,4 @@
    #end
 #end
 
-<meta property="og:url" content="$propertyUtil.getString($currentPage, 'URL')" />
+<meta property="og:url" content="$propertyUtil.getString($currentPage, 'URL', '')" />
