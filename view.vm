@@ -27,7 +27,7 @@
 #macro ( loadText $metas $result )
    #foreach ($meta in $metas)
       #if ($result == '')
-            #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
+         #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
       #end
    #end
 #end
