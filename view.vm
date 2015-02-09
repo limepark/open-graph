@@ -52,9 +52,12 @@
       #if ($imageUrl == '')
          #set ($imageNode = $propertyUtil.getNode($currentPage, $meta))
          #if ($imageNode)
-            #set ($imageUrl = $propertyUtil.getString($imageNode, 'URL', ''))
-            #set ($imageWidth = $propertyUtil.getString($imageNode, 'width', ''))
-            #set ($imageHeight = $propertyUtil.getString($imageNode, 'height', ''))
+            #set ($imageWidth = $propertyUtil.getInt($imageNode, 'width', 0))
+            #set ($imageHeight = $propertyUtil.getInt($imageNode, 'height', 0))
+            
+            #if ($imageWidth > 200 && $imageHeight > 200)
+               #set ($imageUrl = $propertyUtil.getString($imageNode, 'URL', ''))
+            #end
          #end
       #end
    #end
