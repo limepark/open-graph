@@ -27,11 +27,12 @@
 #macro ( loadText $metas $result )
    #foreach ($meta in $metas)
       #if ($result == '')
-         #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
+            #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
       #end
    #end
+   
+   $result
 #end
-
 
 
 ### Variabler ###
@@ -90,7 +91,9 @@
 #end
 
 #if ($renderPreambleMeta)
-   #loadText ($preambleOrder $preambleText)
+   #set ($preambleText = "#loadText ($preambleOrder $preambleText)")
+   #set ($preambleText = $preambleText.trim())
+   
    #if ($preambleText != '')
       <meta property="og:description" content="$!preambleText" />
       
@@ -101,7 +104,8 @@
 #end
 
 #if ($renderTitleMeta)
-   #loadText ($titleOrder $titleText)
+   #set ($titleText = "#loadText ($titleOrder $titleText)")
+   #set ($titleText = $titleText.trim())
    
    #if ($titleText != '')
       <meta property="og:title" content="$!titleText" />
