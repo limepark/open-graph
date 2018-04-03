@@ -4,20 +4,20 @@
 #### Konfiguration ####
 
 ## Bestämmer i vilken ordning bilder ska hämtas ur metadata.
-#set ($imageOrder = ['SV.Image'])
+#set ($imageOrder = ['OG.Image', 'SV.Image'])
 #set ($imageFallbackUrl = '/webdav/images/logga.png')
-#set ($imageFallbackWidth = '554')
-#set ($imageFallbackHeight = '119')
+#set ($imageFallbackWidth = '200')
+#set ($imageFallbackHeight = '200')
 #set ($renderImageMeta = true)
 
 ## Bestämmer i vilken ordning ingress ska hämtas ut metadata.
-#set ($preambleOrder = ['SV.Description'])
+#set ($preambleOrder = ['OG.Description'])
 #set ($renderPreambleMeta = true)
 #set ($renderPreambleAsDescription = true)
 
 
 ## Bestämmer i vilken ordning rubrik/titel ska hämtas ut metadata.
-#set ($titleOrder = ['SV.Title', 'sidnamn'])
+#set ($titleOrder = ['OG.Title', 'SV.Title'])
 #set ($renderTitleMeta = true)
 
 #### /Konfiguration ####
@@ -30,7 +30,7 @@
             #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
       #end
    #end
-   
+
    $result
 #end
 
@@ -55,35 +55,37 @@
          #if ($imageNode)
             #set ($imageWidth = $propertyUtil.getInt($imageNode, 'width', 0))
             #set ($imageHeight = $propertyUtil.getInt($imageNode, 'height', 0))
-            
+
             #if ($imageWidth > 200 && $imageHeight > 200)
                #set ($imageUrl = $propertyUtil.getString($imageNode, 'URL', ''))
             #end
          #end
       #end
    #end
-   
+
    #if ($imageUrl == '')
       #if ($imageFallbackUrl != '')
          #if ($imageFallbackUrl.substring(0, 1) == '/')
             #set ($sitePageUrl = $propertyUtil.getString($utils.resourceLocatorUtil.sitePage, 'URL'))
             #set ($sitePageUri = $propertyUtil.getString($utils.resourceLocatorUtil.sitePage, 'URI'))
-            
+
             #set ($imageFallbackUrl = $sitePageUrl.replace($sitePageUri, '') + $imageFallbackUrl)
          #end
-         
+
          #set ($imageUrl = $imageFallbackUrl)
          #set ($imageWidth = $imageFallbackWidth)
          #set ($imageHeight = $imageFallbackHeight)
       #end
    #end
-   
+
    #if ($imageUrl != '')
       <meta property='og:image' content='$!imageUrl' />
+      <meta name="twitter:image" content="$!imageUrl" />
+
       #if ($imageWidth)
          <meta property="og:image:width" content="$!imageWidth" />
       #end
-      
+
       #if ($imageHeight)
          <meta property="og:image:height" content="$!imageHeight" />
       #end
@@ -93,10 +95,12 @@
 #if ($renderPreambleMeta)
    #set ($preambleText = "#loadText ($preambleOrder $preambleText)")
    #set ($preambleText = $preambleText.trim())
-   
+
    #if ($preambleText != '')
       <meta property="og:description" content="$!preambleText" />
-      
+      <meta name="twitter:description" content="$!preambleText" />
+      <meta name="twitter:card" content="summary" />
+
       #if ($renderPreambleAsDescription)
          <meta name="description" content="$!preambleText" />
       #end
@@ -106,7 +110,7 @@
 #if ($renderTitleMeta)
    #set ($titleText = "#loadText ($titleOrder $titleText)")
    #set ($titleText = $titleText.trim())
-   
+
    #if ($titleText != '')
       <meta property="og:title" content="$!titleText" />
    #end
