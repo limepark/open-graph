@@ -56,7 +56,7 @@
             #set ($imageWidth = $propertyUtil.getInt($imageNode, 'width', 0))
             #set ($imageHeight = $propertyUtil.getInt($imageNode, 'height', 0))
 
-            #if ($imageWidth > 200 && $imageHeight > 200)
+            #if ($imageWidth >= 200 && $imageHeight >= 200)
                #set ($imageUrl = $propertyUtil.getString($imageNode, 'URL', ''))
             #end
          #end
