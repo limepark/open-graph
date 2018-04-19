@@ -68,8 +68,9 @@
          #if ($imageFallbackUrl.substring(0, 1) == '/')
             #set ($sitePageUrl = $propertyUtil.getString($utils.resourceLocatorUtil.sitePage, 'URL'))
             #set ($sitePageUri = $propertyUtil.getString($utils.resourceLocatorUtil.sitePage, 'URI'))
+            #set ($dollar = '$')
 
-            #set ($imageFallbackUrl = $sitePageUrl.replace($sitePageUri, '') + $imageFallbackUrl)
+            #set ($imageFallbackUrl = $sitePageUrl.replaceAll("$!{sitePageUri}$!{dollar}", '') + $imageFallbackUrl)
          #end
 
          #set ($imageUrl = $imageFallbackUrl)
