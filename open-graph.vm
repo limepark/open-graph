@@ -5,7 +5,7 @@
 
 ## Bestämmer i vilken ordning bilder ska hämtas ur metadata.
 #set ($imageOrder = ['OG.Image', 'SV.Image'])
-#set ($imageFallbackUrl = '/webdav/images/logga.png')
+#set ($imageFallbackUrl = 'https://example.com/webdav/images/logotype.png')
 #set ($imageFallbackWidth = '200')
 #set ($imageFallbackHeight = '200')
 #set ($renderImageMeta = true)
