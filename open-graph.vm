@@ -22,19 +22,6 @@
 
 #### /Konfiguration ####
 
-### Macros ###
-
-#macro ( loadText $metas $result )
-   #foreach ($meta in $metas)
-      #if ($result == '')
-            #set ($result = $propertyUtil.getString($currentPage, $meta, ""))
-      #end
-   #end
-
-   $result
-#end
-
-
 ### Variabler ###
 
 #set ($utils = $request.getAttribute('sitevision.utils'))
@@ -93,7 +80,11 @@
 #end
 
 #if ($renderPreambleMeta)
-   #set ($preambleText = "#loadText ($preambleOrder $preambleText)")
+   #foreach ($meta in $preambleOrder)
+      #if ($preambleText == '')
+         #set ($preambleText = $propertyUtil.getString($currentPage, $meta, ""))
+      #end
+   #end
    #set ($preambleText = $preambleText.trim())
 
    #if ($preambleText != '')
@@ -106,7 +97,11 @@
 #end
 
 #if ($renderTitleMeta)
-   #set ($titleText = "#loadText ($titleOrder $titleText)")
+   #foreach ($meta in $titleOrder)
+      #if ($titleText == '')
+         #set ($titleText = $propertyUtil.getString($currentPage, $meta, ""))
+      #end
+   #end
    #set ($titleText = $titleText.trim())
 
    #if ($titleText != '')
