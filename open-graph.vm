@@ -67,7 +67,7 @@
    #end
 
    #if ($imageUrl != '')
-      <meta property='og:image' content='$!imageUrl' />
+      <meta property="og:image" content="$!imageUrl" />
 
       #if ($imageWidth)
          <meta property="og:image:width" content="$!imageWidth" />
@@ -82,7 +82,7 @@
 #if ($renderPreambleMeta)
    #foreach ($meta in $preambleOrder)
       #if ($preambleText == '')
-         #set ($preambleText = $propertyUtil.getString($currentPage, $meta, ""))
+         #set ($preambleText = $propertyUtil.getString($currentPage, $meta, ''))
       #end
    #end
    #set ($preambleText = $preambleText.trim())
@@ -99,7 +99,7 @@
 #if ($renderTitleMeta)
    #foreach ($meta in $titleOrder)
       #if ($titleText == '')
-         #set ($titleText = $propertyUtil.getString($currentPage, $meta, ""))
+         #set ($titleText = $propertyUtil.getString($currentPage, $meta, ''))
       #end
    #end
    #set ($titleText = $titleText.trim())
