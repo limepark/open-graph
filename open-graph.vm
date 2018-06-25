@@ -81,7 +81,6 @@
 
    #if ($imageUrl != '')
       <meta property='og:image' content='$!imageUrl' />
-      <meta name="twitter:image" content="$!imageUrl" />
 
       #if ($imageWidth)
          <meta property="og:image:width" content="$!imageWidth" />
@@ -99,8 +98,6 @@
 
    #if ($preambleText != '')
       <meta property="og:description" content="$!preambleText" />
-      <meta name="twitter:description" content="$!preambleText" />
-      <meta name="twitter:card" content="summary" />
 
       #if ($renderPreambleAsDescription)
          <meta name="description" content="$!preambleText" />
@@ -117,4 +114,5 @@
    #end
 #end
 
+<meta name="twitter:card" content="summary" />
 <meta property="og:url" content="$propertyUtil.getString($currentPage, 'URL', '')" />
