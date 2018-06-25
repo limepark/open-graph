@@ -5,31 +5,22 @@
 ##
 ## Copyright © 2018 Limepark AB <info@limepark.se>
 
-#### Delningtaggar ####
-#######################
+## Configuration
 
-#### Konfiguration ####
-
-## Bestämmer i vilken ordning bilder ska hämtas ur metadata.
-#set ($imageOrder = ['OG.Image', 'SV.Image'])
-#set ($imageFallbackUrl = 'https://example.com/webdav/images/logotype.png')
-#set ($imageFallbackWidth = '200')
-#set ($imageFallbackHeight = '200')
-#set ($renderImageMeta = true)
-
-## Bestämmer i vilken ordning ingress ska hämtas ut metadata.
-#set ($preambleOrder = ['OG.Description'])
-#set ($renderPreambleMeta = true)
-#set ($renderPreambleAsDescription = true)
-
-
-## Bestämmer i vilken ordning rubrik/titel ska hämtas ut metadata.
 #set ($titleOrder = ['OG.Title', 'SV.Title'])
 #set ($renderTitleMeta = true)
 
-#### /Konfiguration ####
+#set ($preambleOrder = ['OG.Description', 'SV.Description'])
+#set ($renderPreambleMeta = true)
+#set ($renderPreambleAsDescription = false)
 
-### Variabler ###
+#set ($imageOrder = ['OG.Image', 'SV.Image'])
+#set ($renderImageMeta = true)
+#set ($imageFallbackUrl = 'https://example.com/webdav/images/logotype.png')
+#set ($imageFallbackWidth = '200')
+#set ($imageFallbackHeight = '200')
+
+## End of configuration
 
 #set ($utils = $request.getAttribute('sitevision.utils'))
 #set ($nodeTreeUtil = $utils.nodeTreeUtil)
