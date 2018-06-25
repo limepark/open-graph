@@ -80,7 +80,7 @@
 #if ($renderPreambleMeta)
    #foreach ($meta in $preambleOrder)
       #if ($preambleText == '')
-         #set ($preambleText = $propertyUtil.getString($currentPage, $meta, ''))
+         #set ($preambleText = $propertyUtil.getStringEscaped($currentPage, $meta, ''))
       #end
    #end
    #set ($preambleText = $preambleText.trim())
@@ -97,7 +97,7 @@
 #if ($renderTitleMeta)
    #foreach ($meta in $titleOrder)
       #if ($titleText == '')
-         #set ($titleText = $propertyUtil.getString($currentPage, $meta, ''))
+         #set ($titleText = $propertyUtil.getStringEscaped($currentPage, $meta, ''))
       #end
    #end
    #set ($titleText = $titleText.trim())
