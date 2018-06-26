@@ -5,7 +5,7 @@
 ##
 ## Copyright © 2018 Limepark AB <info@limepark.se>
 
-## Configuration
+## Settings
 
 #set ($titleOrder = ['OG.Title', 'SV.Title'])
 #set ($renderTitleMeta = true)
@@ -20,7 +20,7 @@
 #set ($imageFallbackWidth = '200')
 #set ($imageFallbackHeight = '200')
 
-## End of configuration
+## End of settings
 
 #set ($utils = $request.getAttribute('sitevision.utils'))
 #set ($nodeTreeUtil = $utils.nodeTreeUtil)
