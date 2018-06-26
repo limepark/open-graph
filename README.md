@@ -1,6 +1,8 @@
-# Open Graph-protokollet och Twitter Cards
+# Open Graph och Twitter Cards för SiteVision
 
-Stöd för [Open Graph-protokollet][og] och [Twitter Cards][tc] i SiteVision.
+Piffa upp dina delningar i sociala medier med stöd för [Open Graph-protokollet][og] och [Twitter Cards][tc] i SiteVision.
+
+![][beforeafter]
 
 ## Installation
 
@@ -43,3 +45,4 @@ Detta projekt är licensierat under MIT-licensen, se filen [LICENSE][license].
 [template]: open-graph.vm
 [codesnippet]: https://help.sitevision.se/SiteVision_4_0/codeSnippetHelp.html
 [license]: LICENSE
+[beforeafter]: docs/before-and-after.png
