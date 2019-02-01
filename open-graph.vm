@@ -13,6 +13,7 @@
 #set ($preambleOrder = ['OG.Description', 'SV.Description'])
 #set ($renderPreambleMeta = true)
 #set ($renderPreambleAsDescription = false)
+#set ($maxPreambleLength = 0)
 
 #set ($imageOrder = ['OG.Image', 'SV.Image'])
 #set ($renderImageMeta = true)
@@ -26,6 +27,7 @@
 #set ($nodeTreeUtil = $utils.nodeTreeUtil)
 #set ($propertyUtil = $utils.propertyUtil)
 #set ($currentPage = $utils.portletContextUtil.currentPage)
+#set ($endecUtil  = $utils.endecUtil)
 
 #set ($imageUrl = '')
 #set ($preambleText = '')
@@ -80,12 +82,16 @@
 #if ($renderPreambleMeta)
    #foreach ($meta in $preambleOrder)
       #if ($preambleText == '')
-         #set ($preambleText = $propertyUtil.getStringEscaped($currentPage, $meta, ''))
+         #set ($preambleText = $propertyUtil.getString($currentPage, $meta, ''))
       #end
    #end
    #set ($preambleText = $preambleText.trim())
+   #if ($maxPreambleLength > 0 && $preambleText.length() > $maxPreambleLength)
+      #set ( $preambleText = $preambleText.substring(0, $maxPreambleLength) + '...')
+   #end
 
    #if ($preambleText != '')
+      #set ($preambleText = $endecUtil.escapeXML($preambleText))
       <meta property="og:description" content="$!preambleText" />
 
       #if ($renderPreambleAsDescription)

@@ -67,6 +67,7 @@ Högt upp i Velocitymallen – mellan kommentarerna ```## Settings``` och ```## 
 | **preambleOrder**               | Den ordning som den ska försöka hämta metadatavärden som ska skrivas ut som _og:description_.                                                                             |
 | **renderPreambleMeta**          | Sätt till _false_ om inte meta-taggen ska renderas.                                                                                                                       |
 | **renderPreambleAsDescription** | Om denna är _true_ skrivs även en ```<meta name="description">``` ut om ett värde hittas. Om _renderPreambleMeta_ är false så skrivs inte denna ut även om den är _true_. |
+| **$maxPreambleLength**          | Maximalt antal tecken som ska skrivas ut av texten. Sätt till 0 för att skriva ut fullständiga texten.                                                                    |
 
 #### Bild
 
