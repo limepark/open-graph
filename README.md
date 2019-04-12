@@ -47,6 +47,14 @@ Okej, jag erkänner, den här delen av projektet behöver dokumenteras bättre. 
 
 <img src="docs/metadata.png" width="504" alt="" />
 
+#### Lägg till fält och identifierare
+I huset lägger du nu till två metadata-fält: 
+
+- Skapa ett metadata-fält för *bilden*. Välj länk typen länk, så kan redaktören välja en bild ur bildarkivet. Gå till fliken *Avancerat* och lägg till identifieraren **OG.Image**
+- Skapa ett metadata-fält för *description-texten*. Välj länk typen text och lägg till en instruktion om att begränsa texten till 150 tecken. Gå till fliken *Avancerat* och lägg till identifieraren **OG.Description**. 
+
+- Dessa fält kommer "falla tillbaka" på de portlets (moduler) som har namnen *Rubrik* (SV.Title), *Ingress* (SV.Description) och *Bild* (SV.Image) om inga ändringar sätts. 
+
 För att lösningen ska fungera behövs metadata för titel, beskrivning och bild.
 
 ### Anpassa inställningarna
