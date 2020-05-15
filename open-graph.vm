@@ -34,6 +34,7 @@
 #set ($titleText = '')
 #set ($imageWidth = '')
 #set ($imageHeight = '')
+#set ($imageMimeType = '')
 
 #if ($renderImageMeta)
    #foreach ($meta in $imageOrder)
@@ -42,6 +43,7 @@
          #if ($imageNode)
             #set ($imageWidth = $propertyUtil.getInt($imageNode, 'width', 0))
             #set ($imageHeight = $propertyUtil.getInt($imageNode, 'height', 0))
+            #set ($imageMimeType = $propertyUtil.getStringEscaped($imageNode, 'mimeType', ''))
 
             #if ($imageWidth >= 200 && $imageHeight >= 200)
                #set ($imageUrl = $propertyUtil.getString($imageNode, 'URL', ''))
@@ -75,6 +77,10 @@
 
       #if ($imageHeight)
          <meta property="og:image:height" content="$!imageHeight" />
+      #end
+
+      #if ($imageMimeType != "")
+         <meta property="og:image:type" content="$!imageMimeType" />
       #end
    #end
 #end
