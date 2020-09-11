@@ -47,15 +47,15 @@ Härnäst är det dags att skapa nya metadatafält. Det gör du genom att höger
 
 Värdena för respektive metadatafält är enligt följande:
 
-### Bild
+#### Bild
 <img src="docs/metadata-image.png" width="504" alt="" />
 <img src="docs/metadata-image-class.png" width="504" alt="" />
 
-### Rubrik
+#### Rubrik
 <img src="docs/metadata-title.png" width="504" alt="" />
 <img src="docs/metadata-title-class.png" width="504" alt="" />
 
-### Ingress
+#### Ingress
 <img src="docs/metadata-ingress.png" width="504" alt="" />
 <img src="docs/metadata-ingress-class.png" width="504" alt="" />
 
