@@ -43,7 +43,7 @@ Kopiera innehållet i Velocitymallen [open-graph.vm][template] och klistra in de
 
 ### Skapa nya metadata
 
-Härnäst är det dags att skapa nya metadatafält. Det gör du genom att högerklicka på huset, välj sedan “Egenskaper” och sedan “Metadata”. Tryck därefter på “Lägg till metadatafält”, och för att lösningen ska fungera behöver vi metadatafält för bild, rubrik, och ingress.
+Härnäst är det dags att skapa nya metadatafält. Det gör du genom att högerklicka på huset, välj sedan “Egenskaper” och sedan “Metadata”. Tryck därefter på “Lägg till metadatafält”, och för att lösningen ska fungera behöver vi metadatafält för bild, rubrik, ingress och standardbild.
 
 Värdena för respektive metadatafält är enligt följande:
 
@@ -58,6 +58,11 @@ Värdena för respektive metadatafält är enligt följande:
 #### Ingress
 <img src="docs/metadata-ingress.png" width="504" alt="" />
 <img src="docs/metadata-ingress-class.png" width="504" alt="" />
+
+#### Standardbild
+<img src="docs/metadata-fallback.png" width="504" alt="" />
+<img src="docs/metadata-fallback-class.png" width="504" alt="" />
+
 
 ### Anpassa inställningarna
 
